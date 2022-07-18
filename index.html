@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>登陆</title>
+
+<link rel="stylesheet" href="../../static/css/tailwind.min.css">
+<link rel="stylesheet" href="../../static/css/style.css">
+
+</head>
+<body>
+        <div class="relative min-h-screen flex">
+            <div class="
+                    flex flex-col
+                    sm:flex-row
+                    items-center
+                    md:items-start
+                    sm:justify-center
+                    md:justify-start
+                    flex-auto
+                    min-w-0
+                    bg-white
+                ">
+                <div class="
+                        sm:w-1/2
+                        xl:w-3/5
+                        h-full
+                        hidden
+                        md:flex
+                        flex-auto
+                        items-center
+                        justify-center
+                        p-10
+                        overflow-hidden
+                        bg-purple-900
+                        text-white
+                        bg-no-repeat bg-cover
+                        relative
+                    " style="background-image: url(../../static/picture/img.jpg)">
+                    <div class="
+                            absolute
+                            bg-gradient-to-b
+                            from-indigo-600
+                            to-blue-500
+                            opacity-75
+                            inset-0
+                            z-0
+                        "></div>
+                    <div class="w-full max-w-md z-10">
+                        <div class="sm:text-4xl xl:text-5xl font-bold leading-tight mb-6">鸿业正隆</div>
+                        <div class="sm:text-sm xl:text-md text-gray-200 font-normal">欢迎来到鸿业正隆！</div>
+                    </div>
+                    <ul class="circles">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+                <div class="
+                        md:flex md:items-center md:justify-center
+                        w-full
+                        sm:w-auto
+                        md:h-full
+                        w-2/5
+                        xl:w-2/5
+                        p-8
+                        md:p-10
+                        lg:p-14
+                        sm:rounded-lg
+                        md:rounded-none
+                        bg-white
+                    ">
+                    <div class="max-w-md w-full mx-auto space-y-8">
+                        <div class="text-center">
+                            <h2 class="mt-6 text-3xl font-bold text-gray-900">欢迎回来</h2>
+                        </div>
+                        <form class="mt-8 space-y-6" action="login" method="POST" id="dl">
+                            <input type="hidden" name="remember" value="true">
+                            <div class="relative">
+                                <label class="ml-3 text-sm font-bold text-gray-700 tracking-wide">用户名</label>
+                                <input name="username" required="required" class="
+                                        w-full
+                                        text-base
+                                        px-4
+                                        py-2
+                                        border-b border-gray-300
+                                        focus:outline-none
+                                        rounded-2xl
+                                        focus:border-indigo-500
+                                    " type="" placeholder="请输入用户名">
+                            </div>
+                            <div class="mt-8 content-center">
+                                <label class="ml-3 text-sm font-bold text-gray-700 tracking-wide" >密码</label>
+                                <input  name="password" class="
+                                        w-full
+                                        content-center
+                                        text-base
+                                        px-4
+                                        py-2
+                                        border-b
+                                        rounded-2xl
+                                        border-gray-300
+
+                                        focus:outline-none focus:border-indigo-500
+                                    " required="required" type="password" placeholder="请输入密码" minlength="6">
+                            </div>
+
+                            <div class="mt-8 content-center">
+                                  <label class="ml-3 text-sm font-bold text-gray-700 tracking-wide">验证码</label>
+                                  <input name="yanzheng" id="Yzm" class="
+                                        content-center
+                                        text-base
+                                        px-4
+                                        py-2
+                                        border-b
+                                        rounded-2xl
+                                        border-gray-100
+                                        focus:outline-none focus:border-indigo-500"
+                                         required="required"
+                                         type="" placeholder="请输入验证码">
+                                  <input
+                                    type="button"
+                                    id="code"
+                                    value="点我验证"
+                                    class="btn-list-btn"
+                                    onclick="createCode()"
+                                  />
+                                <input type="text" id="textfield" name="textfield" hidden>
+                                <br>
+                                <br>
+                                <input type="text" autocomplete="off" disabled style=" background-color: white ;border: 0px solid #ccc; padding: 3px 0px; font-size: 13px;color: red" value={{text}}>
+                                </div>
+                            <div>
+                                <button type="submit" class="
+                                        w-full
+                                        flex
+                                        justify-center
+                                        bg-gradient-to-r
+                                        from-indigo-500
+                                        to-blue-600
+                                        hover:bg-gradient-to-l
+                                        hover:from-blue-500
+                                        hover:to-indigo-600
+                                        text-gray-100
+                                        p-4
+                                        rounded-full
+                                        tracking-wide
+                                        font-semibold
+                                        shadow-lg
+                                        cursor-pointer
+                                        transition
+                                        ease-in
+                                        duration-500
+                                    ">登 录</button>
+                            </div>
+                        </form>
+                        <form class="mt-8 space-y-6" action="index2" method="POST" id="dl">
+                        <div>
+                                <button type="submit" class="
+                                        w-full
+                                    ">试试换一种登录方式</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+<script>
+      // 在全局定义验证码
+      let code
+      // 产生验证码函数
+      let createCode = () => {
+        code = ''
+        let codeLength = 4 // 验证码的长度
+        let checkCode = document.getElementById('code')
+        // 随机数
+        let random = [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          'A',
+          'B',
+          'C',
+          'D',
+          'E',
+          'F',
+          'G',
+          'H',
+          'I',
+          'J',
+          'K',
+          'L',
+          'M',
+          'N',
+          'O',
+          'P',
+          'Q',
+          'R',
+          'S',
+          'T',
+          'U',
+          'V',
+          'W',
+          'X',
+          'Y',
+          'Z'
+        ]
+        for (let i = 0; i < codeLength; i++) {
+          // 循环操作
+          let index = Math.floor(Math.random() * 36) // 取得随机数的索引（0~35）
+          code += random[index] // 根据索引取得随机数加到code上
+        }
+        checkCode.value = code // 把code值赋给验证码
+      }
+      // 网页一刷新就刷新验证码
+      createCode()
+      // 验证码校验函数
+      let validate = () => {
+        let inputCode = document.getElementById('Yzm').value.toUpperCase() // 取得输入的验证码并转化为大写
+          let s;
+          if (inputCode.length <= 0) {
+              // 若输入的验证码长度为0
+              alert('请输入验证码！') // 则弹出请输入验证码
+              $('#Yzm').focus() // 重新聚焦验证码框
+              s = false
+          } else if (inputCode != code) {
+              // 若输入的验证码与产生的验证码不一致时
+              alert('验证码输入错误！@_@') // 则弹出验证码输入错误
+              createCode() // 刷新验证码
+              //location.reload();
+              s = false
+          } else {
+              // 输入正确时
+              {#$('#Yzm').blur() // 绑定验证码输入正确时要做的事#}
+              s = true
+              {#alert('验证码输入正确！@_@')#}
+          }
+          document.getElementById('textfield').value=s
+      }
+      // 校验验证码
+      document.getElementById('Yzm').addEventListener('change', validate)
+    </script>
+</body>
+</html>
